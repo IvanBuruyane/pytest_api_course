@@ -35,6 +35,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        export DJANGO_SETTINGS_MODULE=coronavstech.settings
         pytest api/coronavstech/companies -s -v -m "not skip_in_ci" --durations=0 --cov=.
 
   run-fibonacci-tests:
@@ -110,5 +111,6 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
+          export DJANGO_SETTINGS_MODULE=coronavstech.settings
           pytest api/coronavstech/fibonacci_app/ -s -v -m stresstest --minutes 1
 
