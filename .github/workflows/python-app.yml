@@ -12,7 +12,7 @@ on:
       - 'main'
 
 jobs:
-  build:
+  run-companies-tests:
 
     runs-on: ubuntu-latest
 
@@ -36,3 +36,79 @@ jobs:
     - name: Test with pytest
       run: |
         pytest api/coronavstech/companies -s -v -m "not skip_in_ci" --durations=0 --cov=.
+
+  run-fibonacci-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          pip install pipenv --upgrade
+          pip install flake8 pytest
+          pipenv install --system
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest fibonacci/ -s -v --durations=0 --cov=.
+
+  run-fibonacci-api-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          pip install pipenv --upgrade
+          pip install flake8 pytest
+          pipenv install --system
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest api/coronavstech/fibonacci_app/ -s -v -m "not stresstest" --durations=0 --cov=.
+
+  run-fibonacci-stress-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          pip install pipenv --upgrade
+          pip install flake8 pytest
+          pipenv install --system
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest api/coronavstech/fibonacci_app/ -s -v -m stresstest --minutes 1
+
