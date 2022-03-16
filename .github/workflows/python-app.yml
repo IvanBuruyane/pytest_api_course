@@ -35,6 +35,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        echo $PWD
+        export PYTHONPATH=$PWD
+        echo $PYTHONPATH
         export DJANGO_SETTINGS_MODULE=api.coronavstech.coronavstech.settings
         pytest api/coronavstech/companies -s -v -m "not skip_in_ci" --durations=0 --cov=.
 
