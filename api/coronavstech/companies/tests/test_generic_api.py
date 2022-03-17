@@ -40,7 +40,7 @@ def cleanup_company(company_id: str) -> None:
 
 @pytest.mark.crypto
 def test_get_dogecoin_returns_valid_schema() -> None:
-    for i in range(10):
+    for i in range(9):
         response = requests.get(
             url=coinapi, headers={"X-CoinAPI-Key": environ["COINAPI_KEY"]}
         )
