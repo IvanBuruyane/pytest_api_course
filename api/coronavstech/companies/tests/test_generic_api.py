@@ -40,10 +40,12 @@ def cleanup_company(company_id: str) -> None:
 
 @pytest.mark.crypto
 def test_get_dogecoin_returns_valid_schema() -> None:
-    print("COINAPI_KEY="+environ["COINAPI_KEY"])
-    response = requests.get(
-        url=coinapi, headers={"X-CoinAPI-Key": environ["COINAPI_KEY"]}
-    )
+    for i in range(10):
+        response = requests.get(
+            url=coinapi, headers={"X-CoinAPI-Key": environ["COINAPI_KEY"]}
+        )
+        if response.status_code == 200:
+            break
     expected_schema = [
         {
             "asset_id": "DOGE",
