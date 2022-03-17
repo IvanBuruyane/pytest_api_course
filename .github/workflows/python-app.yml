@@ -13,7 +13,6 @@ on:
 
 jobs:
   run-companies-tests:
-    environment: test-env
 
     runs-on: ubuntu-latest
 
