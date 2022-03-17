@@ -40,7 +40,7 @@ def cleanup_company(company_id: str) -> None:
 
 @pytest.mark.crypto
 def test_get_dogecoin_returns_valid_schema() -> None:
-    for i in range(9):
+    for i in range(10):
         response = requests.get(
             url=coinapi, headers={"X-CoinAPI-Key": environ["COINAPI_KEY"]}
         )
@@ -67,10 +67,9 @@ def test_get_dogecoin_returns_valid_schema() -> None:
             "data_end": str,
         }
     ]
-    assert response.status_code == 200, str(response.request.headers)
-    #     error_generator(
-    #     "status_code", "200", str(response.status_code)
-    # )
+    assert response.status_code == 200, error_generator(
+        "status_code", "200", str(response.status_code)
+    )
     assert schema(expected_schema) == response.json()
 
 

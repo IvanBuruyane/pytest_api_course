@@ -10,4 +10,3 @@ def time_tracker():
     tock = datetime.now()
     diff = tock - tick
     print(f"\nruntime: {diff.total_seconds()}")
-
