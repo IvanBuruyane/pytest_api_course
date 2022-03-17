@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - env:
+        COINAPI_KEY: ${{ secrets.COINAPI_KEY }}
     - uses: actions/checkout@v2
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
@@ -37,7 +39,7 @@ jobs:
       run: |
         export PYTHONPATH=$PWD
         export DJANGO_SETTINGS_MODULE=api.coronavstech.coronavstech.settings
-        export COINAPI_KEY=${{secrets.COINAPI_KEY}}
+        export COINAPI_KEY=$COINAPI_KEY
         pytest api/coronavstech/companies -s -v -m "not skip_in_ci" --durations=0 --cov=.
 
   run-fibonacci-tests:
