@@ -67,9 +67,10 @@ def test_get_dogecoin_returns_valid_schema() -> None:
             "data_end": str,
         }
     ]
-    assert response.status_code == 200, error_generator(
-        "status_code", "200", str(response.status_code)
-    )
+    assert response.status_code == 200, str(response.request.headers)
+    #     error_generator(
+    #     "status_code", "200", str(response.status_code)
+    # )
     assert schema(expected_schema) == response.json()
 
 
